@@ -41,8 +41,8 @@
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
-                    <label for="estatus">Estatus</label>
-                    <select id="estatus" name="estatus" class="form-control">
+                    <label for="status">Estatus</label>
+                    <select id="status" name="status" class="form-control">
                         <option value="Activa">Activa</option>
                         <option value="Inactiva">Inactiva</option>
                     </select>
@@ -52,8 +52,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="detalle">Detalles</label>
-                    <textarea class="form-control" name="detalle" id="detalle" rows="10"></textarea>
+                    <label for="detalhe">Detalles</label>
+                    <textarea class="form-control" name="detalhe" id="detalhe" rows="10"></textarea>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
 <script src="${urlPublic}/tinymce/tinymce.min.js"></script>
 <script>
     tinymce.init({
-        selector: '#detalle',
+        selector: '#detalhe',
         plugins: "textcolor, table lists code",
         toolbar: " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
                     | bullist numlist outdent indent | forecolor backcolor table code"

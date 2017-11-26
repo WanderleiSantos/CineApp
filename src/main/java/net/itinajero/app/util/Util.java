@@ -1,5 +1,10 @@
 package net.itinajero.app.util;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -23,4 +28,30 @@ public class Util {
         }
         return nextDays;
     }
+    public static String guardarImagem(MultipartFile multipartFile, HttpServletRequest httpServletRequest){
+
+        String nomeOriginal = multipartFile.getOriginalFilename();
+        nomeOriginal = nomeOriginal.replace(" ","-");
+        String nomeFinal = randomAlphaNumeric(8)+nomeOriginal;
+
+        String rootFinal = httpServletRequest.getServletContext().getRealPath("/resources/images/");
+        try {
+            File imageFile = new File(rootFinal + nomeFinal);
+            multipartFile.transferTo(imageFile);
+            return nomeFinal;
+        }catch (IOException ex){
+            return null;
+        }
+    }
+
+    public static String randomAlphaNumeric(int count){
+        String CARACTERES = "ABCDEFGHIJLMNOPQRSTUVXZ0123456789";
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0){
+            int caracter = (int) (Math.random()) * CARACTERES.length();
+            builder.append(CARACTERES.charAt(caracter));
+        }
+        return builder.toString();
+    }
+
 }

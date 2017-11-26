@@ -13,6 +13,8 @@ public class Pelicula {
     private Date fechaEstreno;
     private String estatus="Activa";
 
+    private Detalhe detalhe;
+
     public int getId() {
         return id;
     }
@@ -77,6 +79,14 @@ public class Pelicula {
         this.estatus = estatus;
     }
 
+    public Detalhe getDetalhe() {
+        return detalhe;
+    }
+
+    public void setDetalhe(Detalhe detalhe) {
+        this.detalhe = detalhe;
+    }
+
     @Override
     public String toString() {
         return "Pelicula{" +
@@ -88,8 +98,7 @@ public class Pelicula {
                 ", imagem='" + imagem + '\'' +
                 ", fechaEstreno=" + fechaEstreno +
                 ", estatus='" + estatus + '\'' +
+                ", detalhe=" + detalhe +
                 '}';
     }
-
-
 }

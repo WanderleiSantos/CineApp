@@ -1,9 +1,14 @@
 package net.itinajero.app.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "Noticias")
 public class Noticia {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String titulo;

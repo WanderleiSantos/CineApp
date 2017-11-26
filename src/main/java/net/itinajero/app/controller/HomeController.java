@@ -1,6 +1,7 @@
 package net.itinajero.app.controller;
 
 import net.itinajero.app.model.Pelicula;
+import net.itinajero.app.service.IBannersService;
 import net.itinajero.app.service.IPeliculasService;
 import net.itinajero.app.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class HomeController {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-    @Autowired
+	@Autowired
+	private IBannersService serviceBanners;
+
+	@Autowired
     private IPeliculasService peliculasService;
 
 	@RequestMapping(value="/home", method=RequestMethod.GET)
@@ -40,6 +44,7 @@ public class HomeController {
 		model.addAttribute("fechaBusqueda", dateFormat.format(new Date()));
 		model.addAttribute("peliculas", peliculas);
 		model.addAttribute("fechas", listaFechas);
+		model.addAttribute("banners", serviceBanners.buscarTodos());
 
 		return "home";
 	}
@@ -62,6 +67,8 @@ public class HomeController {
          model.addAttribute("fechaBusqueda", fecha);
          model.addAttribute("peliculas", peliculas);
          model.addAttribute("fechas", listaFechas);
+
+		 model.addAttribute("banners", serviceBanners.buscarTodos());
 
 	     return "home";
      }
