@@ -64,7 +64,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><span class="label label-success">20-05-2017</span></h3>
+                <h3 class="panel-title"><span class="label label-success">${fechaBusca}</span></h3>
             </div>
             <div class="panel-body">
                 <table class="table table-striped">
@@ -76,41 +76,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>16:00</td>
-                        <td>Sala 1</td>
-                        <td>$10</td>
-                    </tr>
-                    <tr>
-                        <td>18:00</td>
-                        <td>Sala 1</td>
-                        <td>$10</td>
-                    </tr>
-                    <tr>
-                        <td>20:00</td>
-                        <td>Sala 1</td>
-                        <td>$10</td>
-                    </tr>
-                    <tr>
-                        <td>14:00</td>
-                        <td>Sala 1</td>
-                        <td>$10</td>
-                    </tr>
-                    <tr>
-                        <td>16:00</td>
-                        <td>Sala 1</td>
-                        <td>$10</td>
-                    </tr>
-                    <tr>
-                        <td>20:00</td>
-                        <td>Sala 1</td>
-                        <td>$10</td>
-                    </tr>
-                    <tr>
-                        <td>22:00</td>
-                        <td>Sala 1</td>
-                        <td>$10</td>
-                    </tr>
+                     <c:forEach items="${horarios}" var="horarios">
+                         <tr>
+                             <td>${horarios.hora}</td>
+                             <td>${horarios.sala}</td>
+                             <td>${horarios.precio}</td>
+                         </tr>
+                     </c:forEach>
                     </tbody>
                 </table>
             </div>

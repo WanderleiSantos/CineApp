@@ -1,16 +1,17 @@
 package net.itinajero.app.controller;
 
+import net.itinajero.app.model.Horario;
 import net.itinajero.app.model.Pelicula;
 import net.itinajero.app.service.IBannersService;
+import net.itinajero.app.service.IHorarioService;
 import net.itinajero.app.service.IPeliculasService;
 import net.itinajero.app.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,9 @@ public class HomeController {
 
 	@Autowired
     private IPeliculasService peliculasService;
+
+	@Autowired
+	private IHorarioService horarioService;
 
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String goHome(){
@@ -50,8 +54,11 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/detail/{id}/{fecha}", method = RequestMethod.GET)
-	 public  String mostrarDetalhe(Model model, @PathVariable("id") int idPelicula, @PathVariable("fecha") String fecha){
+	 public  String mostrarDetalhe(Model model, @PathVariable("id") int idPelicula, @PathVariable("fecha") Date fecha){
 
+		List<Horario> horarios = horarioService.buscarPorPelicula(idPelicula, fecha);
+	    model.addAttribute("horarios", horarios);
+	    model.addAttribute("fechaBusca", dateFormat.format(fecha));
         model.addAttribute("pelicula", peliculasService.buscarPorId(idPelicula));
 
 		return "detail";
@@ -72,4 +79,12 @@ public class HomeController {
 
 	     return "home";
      }
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
+
+
 }
