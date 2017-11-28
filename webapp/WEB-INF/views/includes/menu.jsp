@@ -15,7 +15,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="${urlRoot}peliculas/index">Peliculas</a></li>
+                <li><a href="${urlRoot}peliculas/indexPaginate">Peliculas</a></li>
                 <li><a href="${urlRoot}banners/index">Banners</a></li>
                 <li><a href="#">Acerca</a></li>
                 <li><a href="#">Login</a></li>

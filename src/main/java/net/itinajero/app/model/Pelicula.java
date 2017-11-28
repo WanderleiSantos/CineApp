@@ -1,19 +1,33 @@
 package net.itinajero.app.model;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
+@Entity
+@Table(name = "Peliculas")
 public class Pelicula {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String titulo;
     private int duracion;
     private String clasificacion;
     private String genero;
+
+    @Column(name = "imagen")
     private String imagem = "cinema.png";
+
     private Date fechaEstreno;
     private String estatus="Activa";
 
+    @OneToOne
+    @JoinColumn(name = "idDetalle")
     private Detalhe detalhe;
+
+    @OneToMany(mappedBy = "pelicula", fetch = FetchType.EAGER)
+    private List<Horario> horarios;
 
     public int getId() {
         return id;
@@ -87,6 +101,14 @@ public class Pelicula {
         this.detalhe = detalhe;
     }
 
+    public List<Horario> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
     @Override
     public String toString() {
         return "Pelicula{" +
@@ -99,6 +121,7 @@ public class Pelicula {
                 ", fechaEstreno=" + fechaEstreno +
                 ", estatus='" + estatus + '\'' +
                 ", detalhe=" + detalhe +
+                ", horarios=" + horarios +
                 '}';
     }
 }

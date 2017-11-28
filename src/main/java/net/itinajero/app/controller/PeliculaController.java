@@ -1,10 +1,13 @@
 package net.itinajero.app.controller;
 
 import net.itinajero.app.model.Pelicula;
+import net.itinajero.app.service.IDetalhesService;
 import net.itinajero.app.service.IPeliculasService;
 import net.itinajero.app.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +32,9 @@ public class PeliculaController {
     @Autowired
     private IPeliculasService peliculasService;
 
+    @Autowired
+    private IDetalhesService detalhesService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -37,7 +43,6 @@ public class PeliculaController {
 
     @GetMapping("/create")
     public String crear(@ModelAttribute Pelicula pelicula, Model model){
-        model.addAttribute("generos", peliculasService.buscarGeneros());
         return "peliculas/formPelicula";
     }
 
@@ -50,10 +55,12 @@ public class PeliculaController {
             pelicula.setImagem(nomeImagem);
         }
 
-        peliculasService.insertar(pelicula);
-        redirectAttributes.addFlashAttribute("mensagem","Registro salvo com sucesso");
 
-        return "redirect:/peliculas/index";
+        detalhesService.insertar(pelicula.getDetalhe());
+        peliculasService.insertar(pelicula);
+
+        redirectAttributes.addFlashAttribute("mensagem","Registro salvo com sucesso");
+        return "redirect:/peliculas/indexPaginate";
     }
 
     @GetMapping("/index")
@@ -61,6 +68,36 @@ public class PeliculaController {
         List<Pelicula> peliculaList = peliculasService.buscarTodas();
         model.addAttribute("peliculas", peliculaList);
         return "peliculas/listPeliculas";
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public String editar(@PathVariable("id") int id, Model model){
+
+        Pelicula pelicula = peliculasService.buscarPorId(id);
+        model.addAttribute("pelicula", pelicula);
+
+        return "peliculas/formPelicula";
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String delete(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
+        Pelicula pelicula = peliculasService.buscarPorId(id);
+        peliculasService.excluir(id);
+        detalhesService.exluir(pelicula.getDetalhe().getId());
+        redirectAttributes.addFlashAttribute("mensagem","Registro excluido com sucesso");
+        return "redirect:/peliculas/indexPaginate";
+    }
+
+    @GetMapping(value = "/indexPaginate")
+    public String mostrarIndexPaginado(Model model, Pageable page) {
+        Page<Pelicula> lista = peliculasService.buscarTodas(page);
+        model.addAttribute("peliculas", lista);
+        return "peliculas/listPeliculas";
+    }
+
+    @ModelAttribute("generos")
+    public List<String> getGeneros(){
+        return peliculasService.buscarGeneros();
     }
 
 

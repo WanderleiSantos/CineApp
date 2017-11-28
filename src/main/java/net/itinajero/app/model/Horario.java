@@ -1,14 +1,22 @@
 package net.itinajero.app.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "Horarios")
 public class Horario {
-	
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private Date fecha;
 	private String hora;
 	private String sala;
 	private double precio;
+
+    @ManyToOne
+    @JoinColumn(name = "idPelicula")
 	private Pelicula pelicula;
 
 	public Horario() { }

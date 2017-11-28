@@ -1,7 +1,13 @@
 package net.itinajero.app.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Detalles")
 public class Detalhe {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String director;

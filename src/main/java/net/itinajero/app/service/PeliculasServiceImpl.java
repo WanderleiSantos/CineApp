@@ -1,65 +1,38 @@
 package net.itinajero.app.service;
 
 import net.itinajero.app.model.Pelicula;
+import net.itinajero.app.repository.PeliculaRepository;
 import net.itinajero.app.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
-public class PeliculasServiceImpl implements IPeliculasService{
+public class PeliculasServiceImpl implements IPeliculasService {
 
-    private List<Pelicula> peliculas = new ArrayList<Pelicula>();
-
-    public PeliculasServiceImpl() {
-
-        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
-
-        try {
-
-            Pelicula pelicula = new Pelicula();
-
-            pelicula.setId(10);
-            pelicula.setTitulo("Kong");
-            pelicula.setDuracion(160);
-            pelicula.setClasificacion("A");
-            pelicula.setGenero("Drama");
-            pelicula.setEstatus("Activa");
-            pelicula.setFechaEstreno(formater.parse("10-06-2017"));
-
-            Pelicula pelicula2 = new Pelicula();
-
-            pelicula2.setId(11);
-            pelicula2.setTitulo("Monstros");
-            pelicula2.setDuracion(160);
-            pelicula2.setClasificacion("A");
-            pelicula2.setGenero("Drama");
-            pelicula2.setEstatus("Activa");
-            pelicula2.setFechaEstreno(formater.parse("10-06-2017"));
-
-            peliculas.add(pelicula);
-            peliculas.add(pelicula2);
-
-        } catch (ParseException ex){
-
-        }
-    }
+    @Autowired
+    private PeliculaRepository peliculaRepository;
 
     @Override
     public List<Pelicula> buscarTodas() {
-        return peliculas;
+        return peliculaRepository.findAll();
     }
 
     @Override
     public Pelicula buscarPorId(int id) {
 
-        for (Pelicula p : peliculas){
-            if(p.getId() == id){
-                return p;
-            }
+        Optional<Pelicula> optional = peliculaRepository.findById(id);
+
+        if(optional.isPresent()){
+            return optional.get();
         }
 
         return null;
@@ -67,7 +40,7 @@ public class PeliculasServiceImpl implements IPeliculasService{
 
     @Override
     public void insertar(Pelicula pelicula) {
-        peliculas.add(pelicula);
+        peliculaRepository.save(pelicula);
     }
 
     @Override
@@ -86,5 +59,15 @@ public class PeliculasServiceImpl implements IPeliculasService{
         generos.add("Romantica");
 
         return generos;
+    }
+
+    @Override
+    public void excluir(int id) {
+        peliculaRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Pelicula> buscarTodas(Pageable page) {
+        return peliculaRepository.findAll(page);
     }
 }
