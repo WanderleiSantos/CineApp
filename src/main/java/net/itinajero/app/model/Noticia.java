@@ -15,8 +15,10 @@ public class Noticia {
 
     private Date fecha;
 
+    @Column(name = "detalle")
     private String detalhe;
 
+    @Column(name = "estatus")
     private String status;
 
     public Noticia() {

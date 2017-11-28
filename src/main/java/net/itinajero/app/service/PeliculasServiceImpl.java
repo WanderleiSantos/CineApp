@@ -1,6 +1,8 @@
 package net.itinajero.app.service;
 
+import net.itinajero.app.model.Horario;
 import net.itinajero.app.model.Pelicula;
+import net.itinajero.app.repository.HorariosRepository;
 import net.itinajero.app.repository.PeliculaRepository;
 import net.itinajero.app.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -20,6 +20,9 @@ public class PeliculasServiceImpl implements IPeliculasService {
 
     @Autowired
     private PeliculaRepository peliculaRepository;
+
+    @Autowired
+    private HorariosRepository horariosRepository;
 
     @Override
     public List<Pelicula> buscarTodas() {
@@ -69,5 +72,19 @@ public class PeliculasServiceImpl implements IPeliculasService {
     @Override
     public Page<Pelicula> buscarTodas(Pageable page) {
         return peliculaRepository.findAll(page);
+    }
+
+    @Override
+    public List<Pelicula> buscarPorFecha(Date fecha) {
+        List<Pelicula> peliculas = null;
+
+        List<Horario> horarios = horariosRepository.findByFecha(fecha);
+        peliculas = new LinkedList<>();
+
+
+        for (Horario h : horarios) {
+            peliculas.add(h.getPelicula());
+        }
+        return peliculas;
     }
 }

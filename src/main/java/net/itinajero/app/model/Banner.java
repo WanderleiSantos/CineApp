@@ -1,9 +1,14 @@
 package net.itinajero.app.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "Banners")
 public class Banner {
 
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 	private String titulo;
 	private Date fecha;

@@ -10,9 +10,20 @@ import java.util.List;
 @Repository
 public interface NoticiasRepository extends JpaRepository<Noticia, Integer> {
 
-    List<Noticia> findByStatus(String status);
+    List<Noticia> findBy();
 
-    List<Noticia> findByFecha(Date data);
+    List<Noticia> findByStatus(String estatus);
 
-    List<Noticia> findByStatusAndFecha(String status, Date data);
+    List<Noticia> findByFecha(Date fecha);
+
+    List<Noticia> findByStatusAndFecha(String estatus, Date fecha);
+
+    List<Noticia> findByStatusOrFecha(String estatus, Date fecha);
+
+    List<Noticia> findByFechaBetween(Date fecha1, Date fecha2);
+
+    List<Noticia> findByIdBetween(int n1, int n2);
+
+    public List<Noticia> findTop3ByStatusOrderByIdDesc(String estatus);
+
 }
