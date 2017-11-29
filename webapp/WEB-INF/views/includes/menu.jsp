@@ -21,6 +21,8 @@
                 <li><a href="${urlRoot}banners/index">Banners</a></li>
                 <li><a href="${urlRoot}about">Acerca</a></li>
                 <li><a href="#">Login</a></li>
+
+                <li><a href="${urlRoot}admin/logout">SAIR</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

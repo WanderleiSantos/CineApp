@@ -110,5 +110,10 @@ public class HomeController {
 		return serviceBannners.buscarActivos();
 	}
 
+	@RequestMapping(value = "/formLogin" ,method = RequestMethod.GET)
+	public String mostrarLogin(){
+		return "/formLogin";
+	}
+
 
 }

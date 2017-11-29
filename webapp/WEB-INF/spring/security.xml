@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/security
+     http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/peliculas/*" access="hasAnyAuthority('EDITOR')"/>
+        <intercept-url pattern="/horarios/*" access="hasAnyAuthority('EDITOR')"/>
+        <intercept-url pattern="/noticias/*" access="hasAnyAuthority('EDITOR')"/>
+        <intercept-url pattern="/banners/*" access="hasAnyAuthority('GERENTE')"/>
+
+        <form-login login-page="/formLogin"/>
+    </http>
+
+    <authentication-manager>
+
+        <authentication-provider>
+            <user-service>
+                <user name="luis" password="{noop}luis123" authorities="EDITOR" />
+                <user name="marisol" password="{noop}mari123" authorities="GERENTE" />
+            </user-service>
+        </authentication-provider>
+
+    </authentication-manager>
+
+</b:beans>
