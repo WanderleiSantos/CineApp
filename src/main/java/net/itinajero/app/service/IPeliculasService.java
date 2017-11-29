@@ -23,4 +23,6 @@ public interface IPeliculasService {
 
     List<Pelicula> buscarPorFecha(Date fecha);
 
+    List<Pelicula> buscarActivas();
+
 }

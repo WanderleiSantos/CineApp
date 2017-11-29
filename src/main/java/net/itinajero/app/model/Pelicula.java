@@ -26,8 +26,6 @@ public class Pelicula {
     @JoinColumn(name = "idDetalle")
     private Detalhe detalhe;
 
-    @OneToMany(mappedBy = "pelicula", fetch = FetchType.EAGER)
-    private List<Horario> horarios;
 
     public int getId() {
         return id;
@@ -101,13 +99,6 @@ public class Pelicula {
         this.detalhe = detalhe;
     }
 
-    public List<Horario> getHorarios() {
-        return horarios;
-    }
-
-    public void setHorarios(List<Horario> horarios) {
-        this.horarios = horarios;
-    }
 
     @Override
     public String toString() {
@@ -121,7 +112,6 @@ public class Pelicula {
                 ", fechaEstreno=" + fechaEstreno +
                 ", estatus='" + estatus + '\'' +
                 ", detalhe=" + detalhe +
-                ", horarios=" + horarios +
                 '}';
     }
 }

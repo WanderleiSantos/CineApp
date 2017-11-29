@@ -87,4 +87,11 @@ public class PeliculasServiceImpl implements IPeliculasService {
         }
         return peliculas;
     }
+
+    @Override
+    public List<Pelicula> buscarActivas() {
+        List<Pelicula> peliculas = null;
+        peliculas = peliculaRepository.findByEstatus_OrderByTitulo("Activa");
+        return peliculas;
+    }
 }

@@ -24,7 +24,7 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">ACERCA DE ESTA APLICACION</h3>
+				<h3 class="panel-title">SOBRE A APLICAÇÃO</h3>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -40,8 +40,7 @@
 							</div>
 							<div class="panel-body">
 								
-								<div class="alert alert-danger" role="alert">ESTA APLICACION DEMO ES PARA QUE PUEDAS VER LA FUNCIONALIDAD COMPLETA DE LA APLICACION
-								QUE SER�S CAPAS DE DESARROLLAR AL FINALIZAR EL CURSO. POR LO TANTO PUEDES CREAR, ACTUALIZAR Y HASTA ELIMINAR REGISTROS.</div>
+								<div class="alert alert-danger" role="alert"> Aplicação Spring Data JPA e MVC</div>
 								
 							</div>
 						</div>
