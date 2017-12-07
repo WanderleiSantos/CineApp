@@ -1,5 +1,6 @@
 package net.itinajero.app.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,11 @@ public class LoginController {
         SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
         logoutHandler.logout(servletRequest, null, null);
         return "redirect:/formLogin";
+    }
+
+    @GetMapping(value = "/index")
+    public String mostrarPrincipalAdmin(Authentication authentication){
+        return "admin";
     }
 
 

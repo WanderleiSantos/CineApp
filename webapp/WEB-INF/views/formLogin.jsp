@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wanderlei
@@ -16,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Site Properties -->
-    <title>Bootstrap 4 Login Form</title>
+    <title>Login</title>
 
     <spring:url value="/resources" var="urlPublic"/>
     <spring:url value="/" var="urlRoot"/>
@@ -40,6 +41,9 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
+                <c:if test="${param.error != null}">
+                    <h4 class="form-signin-heading"> Acesso Negado </h4>
+                </c:if>
                 <div class="form-group has-danger">
                     <label class="sr-only" for="username">Usuário</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">

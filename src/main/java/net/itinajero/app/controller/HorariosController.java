@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,12 +78,11 @@ public class HorariosController {
 	}
 
 
-	@GetMapping(value = "/delete/{id}")
-	public String eliminar(@PathVariable("id") int idHorario, RedirectAttributes attributes) {
+    @ResponseBody
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String eliminar(@PathVariable("id") int idHorario) {
 		serviceHorarios.eliminar(idHorario);
-		attributes.addFlashAttribute("msg", "El horario fue eliminado!");
-		//return "redirect:/horarios/index";
-		return "redirect:/horarios/indexPaginate";
+		return "horarios/indexPaginate";
 	}
 
 

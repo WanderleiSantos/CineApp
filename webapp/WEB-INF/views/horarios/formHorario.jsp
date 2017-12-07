@@ -42,7 +42,7 @@
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label for="idPelicula" class="control-label">Pelicula</label>
-						<form:select id="idPelicula" path="pelicula.id"	class="form-control" 
+						<form:select id="idPelicula" path="pelicula.id"	class="form-control"
 						items="${peliculas}" itemLabel="titulo" itemValue="id" />
 					</div>
 				</div>
@@ -50,20 +50,20 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="form-group">
-						<label for="fecha">Fecha</label> 
+						<label for="fecha">Fecha</label>
 						<form:input type="text"	class="form-control" path="fecha" id="fecha" required="required" />
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<label for="hora">Hora</label> 
+						<label for="hora">Hora</label>
 						<form:input type="text" class="form-control" path="hora" id="hora"
 							placeholder="Formato: HH:mm Ejemplo 21:30" required="required" />
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<label for="sala" class="control-label">Sala</label> 
+						<label for="sala" class="control-label">Sala</label>
 						<form:select id="sala" path="sala" class="form-control">
 							<form:option value="Premium">Sala Premium</form:option>
 							<form:option value="Sala 1">Sala 1</form:option>
@@ -75,7 +75,7 @@
 
 				<div class="col-sm-3">
 					<div class="form-group">
-						<label for="precio">Precio</label> 
+						<label for="precio">Precio</label>
 						<form:input type="text" class="form-control" path="precio" id="precio" required="required" />
 					</div>
 				</div>
