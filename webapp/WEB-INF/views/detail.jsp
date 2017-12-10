@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,12 +48,12 @@
                     </div>
                     <div class="panel-body">
                         <p>
-                            Título Original : ${pelicula.titulo} <br>
+                            TÃ­tulo Original : ${pelicula.titulo} <br>
                             Actores : ${pelicula.detalhe.actores}  <br>
                             Director: ${pelicula.detalhe.director}  <br>
-                            Clasificación: ${pelicula.clasificacion} <br>
-                            Duración: ${pelicula.duracion} minutos <br>
-                            Género: ${pelicula.genero} <br>
+                            ClasificaciÃ³n: ${pelicula.clasificacion} <br>
+                            DuraciÃ³n: ${pelicula.duracion} minutos <br>
+                            GÃ©nero: ${pelicula.genero} <br>
                             Fecha Estreno: ${pelicula.fechaEstreno}
                         </p>
 

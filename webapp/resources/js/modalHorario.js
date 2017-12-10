@@ -1,5 +1,5 @@
 $(function () {
-    $(".btn-xs").click(function (e) {
+    $(".btn-danger").click(function (e) {
         e.preventDefault();
         var id = this.id;
         var nome = this.name;
@@ -45,10 +45,46 @@ $(function () {
             },
 
             complete: function () {
-                $("#divexcluir").empty();
-                $("#divexcluir").addClass("alert alert-success");
-                $("#divexcluir").html("<em> Excluido com Sucesso </em>");
+                $("#divInfo").empty();
+                $("#divInfo").addClass("alert alert-danger");
+                $("#divInfo").html("<em> Excluido com Sucesso </em>");
             }
         });
     });
+
+
+   $("#form-salvar").submit(function (e) {
+       e.preventDefault();
+       var token = $("meta[name='_csrf']").attr("content");
+       var header = $("meta[name='_csrf_header']").attr("content");
+       var form_data = $(this).serialize();
+
+       $.ajax({
+           url: "/cineapp/horarios/save",
+           type: 'POST',
+           data: form_data,
+           beforeSend: function (xhr) {
+               xhr.setRequestHeader(header, token);
+           },
+
+           success: function(data) {
+
+               $('#form-salvar').each(function() {
+                   this.reset();
+               });
+
+               $('#modalCadastro').modal('hide');
+
+               $("#divInfo").empty();
+               $("#divInfo").addClass("alert alert-success");
+               $("#divInfo").html("<em> Horário cadastrado com Sucesso </em>");
+
+           },
+
+           complete: function () {
+           }
+       });
+
+   });
+
 });

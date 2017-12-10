@@ -2,8 +2,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +24,6 @@
     <script src="${urlPublic}/js/modalHorario.js"></script>
 
         <meta name="_csrf" content="${_csrf.token}"/>
-        <!-- default header name is X-CSRF-TOKEN -->
         <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
 	</head>
@@ -33,12 +34,18 @@
 	
 	<div class="container theme-showcase" role="main">
 
-		<h3>Listado de Horarios</h3>
+		<h3>Lista de Horários</h3>
 
-        <div id="divexcluir">
+        <div id="divInfo">
         </div>
+
       
-        <a href="${urlHorarios}/create" class="btn btn-success" role="button" title="Nuevo horario" >Nuevo</a><br><br>
+   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCadastro">
+			Novo
+		</button>
+
+        <br><br>
+
 
         <div class="table-responsive">	
 	        <table class="table table-hover table-striped table-bordered">
@@ -59,10 +66,14 @@
 						<td>${horario.sala} </td>
 						<td>$${horario.precio}</td>					
 						<td>
-							<a href="${urlHorarios}/edit/${horario.id}" class="btn btn-success btn-sm" role="button" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>							
-							<%--<a href="${urlHorarios}/delete/${horario.id}" onclick='return confirm("�Estas seguro?")' class="btn btn-danger btn-sm" role="button" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>--%>
+							<a href="${urlHorarios}/edit/${horario.id}" class="btn btn-success btn-sm" role="button" title="Edit">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
 
-                            <input type="submit" class="btn btn-danger btn-xs" id="${horario.id}" name="${horario.hora}" value="Excluir" />
+							<button type="submit" class="btn btn-danger btn-sm" id="${horario.id}" name="${horario.hora}" value="" >
+								 <span class="glyphicon glyphicon-trash"></span>
+							</button>
+
 						</td>
 					</tr>
 				</c:forEach>
@@ -104,6 +115,76 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cadastroModalLabel">Incluir Horário</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+                <form id="form-salvar">
+                    <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="idPelicula" class="control-label">Pelicula</label>
+                                        <select id="idPelicula" name="pelicula.id"	class="form-control">
+                                            <c:forEach var="c" items="${peliculas}">
+                                                <option value="${c.id}">${c.titulo}</option>
+                                            </c:forEach>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="fecha">Fecha</label>
+                                        <input type="text"	class="form-control" name="fecha" id="fecha" required="required" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="hora">Hora</label>
+                                        <input type="text" class="form-control" name="hora" id="hora"
+                                                    placeholder="Formato: HH:mm Ejemplo 21:30" required="required" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="sala" class="control-label">Sala</label>
+                                        <select id="sala" name="sala" class="form-control">
+                                            <option value="Premium">Sala Premium</option>
+                                            <option value="Sala 1">Sala 1</option>
+                                            <option value="Sala 2">Sala 2</option>
+                                            <option value="Sala 3">Sala 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="precio">Precio</label>
+                                        <input type="text" class="form-control" name="precio" id="precio" required="required" />
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+			</div>
+		</div>
+	</div>
 
 
 </body>

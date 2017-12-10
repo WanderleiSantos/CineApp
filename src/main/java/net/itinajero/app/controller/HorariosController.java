@@ -54,7 +54,7 @@ public class HorariosController {
 		return "horarios/formHorario";
 	}
 
-	@PostMapping(value = "/save")
+/*	@PostMapping(value = "/save")
 	public String guardar(@Valid @ModelAttribute Horario horario, BindingResult result, Model model, RedirectAttributes attributes) {
 
 		if (result.hasErrors()){
@@ -67,6 +67,20 @@ public class HorariosController {
 		attributes.addFlashAttribute("msg", "El horario fue guardado!");
 		//return "redirect:/horarios/index";
 		return "redirect:/horarios/indexPaginate";
+	}*/
+
+	@PostMapping(value = "/save")
+	public @ResponseBody Horario guardar(Horario horario, BindingResult result, Model model, RedirectAttributes attributes) {
+
+		/*if (result.hasErrors()){
+			List<Pelicula> listaPeliculas = servicePeliculas.buscarActivas();
+			model.addAttribute("peliculas", listaPeliculas);
+			return "horarios/formHorario";
+		}*/
+
+		serviceHorarios.insertar(horario);
+		/*attributes.addFlashAttribute("msg", "El horario fue guardado!");*/
+		return horario;
 	}
 
 

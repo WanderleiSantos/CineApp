@@ -1,15 +1,16 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">	
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Listado de Noticias</title>
+	<title>Lista de Noticias</title>
 	<spring:url value="/resources" var="urlPublic" />
 	
 	<link href="${urlPublic}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +24,7 @@
 	
 	<div class="container theme-showcase" role="main">
 
-		<h3>Listado de Noticias</h3>
+		<h3>Lista de Noticias</h3>
       
         <c:if test="${msg !=null }">        
         		<div class='alert alert-success' role='alert'>${msg}</div>
