@@ -53,7 +53,7 @@ $(function () {
     });
 
 
-   $("#form-salvar").submit(function (e) {
+   $("#form-salvar1").submit(function (e) {
        e.preventDefault();
        var token = $("meta[name='_csrf']").attr("content");
        var header = $("meta[name='_csrf_header']").attr("content");

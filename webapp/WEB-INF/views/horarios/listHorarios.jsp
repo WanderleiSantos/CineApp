@@ -22,6 +22,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="${urlPublic}/bootstrap/js/bootstrap.min.js"></script>
     <script src="${urlPublic}/js/modalHorario.js"></script>
+    <script src="${urlPublic}/js/listHorario.js"></script>
 
         <meta name="_csrf" content="${_csrf.token}"/>
         <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -39,7 +40,6 @@
         <div id="divInfo">
         </div>
 
-      
    		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCadastro">
 			Novo
 		</button>
@@ -127,7 +127,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-                <form id="form-salvar">
+                <form id="form-preparar">
                     <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -176,16 +176,43 @@
                                 </div>
 
                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+
+                        <div class="row">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="btnAdicionar">Adicionar</button>
+                            </div>
+                        </div>
+
                     </div>
                 </form>
+
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="table-temp">
+                            <thead>
+                                <tr>
+                                    <th>Pelicula</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Sala</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvar">Salvar</button>
+                </div>
+
 			</div>
 		</div>
 	</div>
-
 
 </body>
 </html>

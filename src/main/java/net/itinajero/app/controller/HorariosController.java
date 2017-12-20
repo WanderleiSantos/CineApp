@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import net.itinajero.app.model.ListHorario;
 import net.itinajero.app.service.IHorarioService;
 import net.itinajero.app.validador.HorarioValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,21 +55,6 @@ public class HorariosController {
 		return "horarios/formHorario";
 	}
 
-/*	@PostMapping(value = "/save")
-	public String guardar(@Valid @ModelAttribute Horario horario, BindingResult result, Model model, RedirectAttributes attributes) {
-
-		if (result.hasErrors()){
-			List<Pelicula> listaPeliculas = servicePeliculas.buscarActivas();
-			model.addAttribute("peliculas", listaPeliculas);
-			return "horarios/formHorario";
-		}
-
-		serviceHorarios.insertar(horario);
-		attributes.addFlashAttribute("msg", "El horario fue guardado!");
-		//return "redirect:/horarios/index";
-		return "redirect:/horarios/indexPaginate";
-	}*/
-
 	@PostMapping(value = "/save")
 	public @ResponseBody Horario guardar(Horario horario, BindingResult result, Model model, RedirectAttributes attributes) {
 
@@ -97,6 +83,19 @@ public class HorariosController {
 	public String eliminar(@PathVariable("id") int idHorario) {
 		serviceHorarios.eliminar(idHorario);
 		return "horarios/indexPaginate";
+	}
+
+
+	@PostMapping(value = "/saveAjax")
+	public @ResponseBody String salvarAjax(ListHorario listHorario, BindingResult result, Model model, RedirectAttributes attributes) {
+
+	    List<Horario> horarios = listHorario.getHorarios();
+
+	    for(Horario horario: horarios) {
+            serviceHorarios.insertar(horario);
+        }
+
+		return "";
 	}
 
 
