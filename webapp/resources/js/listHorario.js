@@ -51,11 +51,11 @@ function novaLinha(fecha, hora, preco, peliculaid, peliculanome, salanome) {
 }
 
 function salvarDados() {
-
+    //"{id:'" + $(this).attr('id') + "'}"
     var tbl = $('#table-temp tr:has(td)').map(function() {
         var $td =  $('td', this);
         return {
-            pelicula:  "{id:'" + $(this).attr('id') + "'}",
+            pelicula: $(this).attr('id') ,
             fecha: $td.eq(1).text(),
             hora: $td.eq(2).text(),
             sala:$td.eq(3).text(),
@@ -64,6 +64,8 @@ function salvarDados() {
     }).get();
 
     console.log(tbl);
+    var jsonObjs = JSON.stringify(tbl);
+    console.log(jsonObjs);
 
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -71,7 +73,7 @@ function salvarDados() {
     $.ajax({
         url: "/cineapp/horarios/saveAjax",
         type: 'POST',
-        data: tbl,
+        data: jsonObjs,
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },
