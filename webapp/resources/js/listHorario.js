@@ -1,18 +1,72 @@
 $(function() {
 
-    $("#btnAdicionar").click(function (e) {
+    $("#form-preparar").submit(function (e) {
+
         e.preventDefault();
-        adicionarHorario();
+        console.log("submit");
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        var form_data = $(this).serialize();
+
+        $.ajax({
+            url: "/cineapp/horarios/listaHorarios",
+            type: 'POST',
+            data: form_data,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+
+            success: function(data) {
+                console.log(data);
+                adicionarHorario();
+            },
+
+            complete: function () {
+            }
+        });
+
     });
 
     $("#btnSalvar").click(function (event) {
         event.preventDefault();
-        salvarDados();
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        $.ajax({
+            url: "/cineapp/horarios/salvarListaHorarios",
+            type: 'GET',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+
+            success: function(data) {
+
+                $('#form-preparar').each(function() {
+                    this.reset();
+                });
+
+                $('#modalCadastro').modal('hide');
+
+                $("#divInfo").empty();
+                $("#divInfo").addClass("alert alert-success");
+                $("#divInfo").html("<em> Horários cadastrados com Sucesso! </em>");
+
+            },
+
+            complete: function () {
+            }
+        });
+
     });
 
 });
 
 function adicionarHorario() {
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
 
     var corpoTabela = $("#table-temp").find("tbody");
 
@@ -25,6 +79,7 @@ function adicionarHorario() {
 
     var linha = novaLinha(fecha, hora, preco, peliculaID, peliculaNome, salaNome);
     corpoTabela.append(linha);
+
 
 }
 
@@ -48,51 +103,4 @@ function novaLinha(fecha, hora, preco, peliculaid, peliculanome, salanome) {
 
 
     return linha;
-}
-
-function salvarDados() {
-    //"{id:'" + $(this).attr('id') + "'}"
-    var tbl = $('#table-temp tr:has(td)').map(function() {
-        var $td =  $('td', this);
-        return {
-            pelicula: $(this).attr('id') ,
-            fecha: $td.eq(1).text(),
-            hora: $td.eq(2).text(),
-            sala:$td.eq(3).text(),
-            precio: $td.eq(4).text()
-        }
-    }).get();
-
-    console.log(tbl);
-    var jsonObjs = JSON.stringify(tbl);
-    console.log(jsonObjs);
-
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-
-    $.ajax({
-        url: "/cineapp/horarios/saveAjax",
-        type: 'POST',
-        data: jsonObjs,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-        },
-
-        success: function(data) {
-
-            $('#form-salvar').each(function() {
-                this.reset();
-            });
-
-            $('#modalCadastro').modal('hide');
-
-            $("#divInfo").empty();
-            $("#divInfo").addClass("alert alert-success");
-            $("#divInfo").html("<em> Horário cadastrado com Sucesso </em>");
-
-        },
-
-        complete: function () {
-        }
-    });
 }

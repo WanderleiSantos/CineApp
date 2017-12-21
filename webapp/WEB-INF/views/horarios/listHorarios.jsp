@@ -179,7 +179,7 @@
 
                         <div class="row">
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" id="btnAdicionar">Adicionar</button>
+                                <button type="submit" class="btn btn-success" id="btnAdicionar">Adicionar</button>
                             </div>
                         </div>
 

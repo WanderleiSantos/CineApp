@@ -1,6 +1,7 @@
 package net.itinajero.app.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class HorariosController {
 
 	@Autowired
 	private IHorarioService serviceHorarios;
+
+	private List<Horario> listHoraiosAttr = new ArrayList<>();
 
 	@GetMapping(value = "/index")
 	public String mostrarIndex(Model model) {
@@ -98,6 +101,22 @@ public class HorariosController {
 		return "";
 	}
 
+
+	@PostMapping(value = "listaHorarios")
+    public @ResponseBody List<Horario> listaHorarios(Horario horario){
+	    listHoraiosAttr.add(horario);
+	    return listHoraiosAttr;
+    }
+
+    @GetMapping(value = "salvarListaHorarios")
+    public @ResponseBody String salvarListaHorarios(){
+        for(Horario horario : listHoraiosAttr){
+            serviceHorarios.insertar(horario);
+        }
+
+        listHoraiosAttr = null;
+        return "horarios/indexPaginate";
+    }
 
 	@ModelAttribute("peliculas")
 	public List<Pelicula> getPeliculas(){
