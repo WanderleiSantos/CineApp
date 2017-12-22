@@ -39,6 +39,10 @@ $(function() {
                     this.reset();
                 });
 
+                lista = [];
+
+                $("#table-temp tbody tr").remove();
+
                 $('#modalCadastro').modal('hide');
 
                 $("#divInfo").empty();
