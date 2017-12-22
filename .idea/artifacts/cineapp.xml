@@ -47,6 +47,7 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.0.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.0.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:5.0.0.RELEASE" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.2" />
         </element>
       </element>
     </root>

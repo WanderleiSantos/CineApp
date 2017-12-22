@@ -20,7 +20,7 @@
 
         <authentication-provider>
             <user-service>
-                <user name="luis" password="{noop}luis123" authorities="EDITOR" />
+                <user name="luis" password="{noop}123" authorities="EDITOR" />
                 <user name="marisol" password="{noop}mari123" authorities="GERENTE" />
             </user-service>
         </authentication-provider>

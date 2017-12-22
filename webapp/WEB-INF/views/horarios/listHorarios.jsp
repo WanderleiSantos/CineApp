@@ -23,6 +23,7 @@
     <script src="${urlPublic}/bootstrap/js/bootstrap.min.js"></script>
     <script src="${urlPublic}/js/modalHorario.js"></script>
     <script src="${urlPublic}/js/listHorario.js"></script>
+    <script src="${urlPublic}/js/DateHelper.js"></script>
 
         <meta name="_csrf" content="${_csrf.token}"/>
         <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -185,6 +186,7 @@
 
                     </div>
                 </form>
+
 
                 <div class="modal-body">
                     <div class="table-responsive">

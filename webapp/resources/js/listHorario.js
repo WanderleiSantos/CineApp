@@ -1,30 +1,15 @@
+
+var lista = [];
+
 $(function() {
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
 
     $("#form-preparar").submit(function (e) {
 
         e.preventDefault();
-        console.log("submit");
-
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        var form_data = $(this).serialize();
-
-        $.ajax({
-            url: "/cineapp/horarios/listaHorarios",
-            type: 'POST',
-            data: form_data,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(header, token);
-            },
-
-            success: function(data) {
-                console.log(data);
-                adicionarHorario();
-            },
-
-            complete: function () {
-            }
-        });
+        adicionarHorario();
 
     });
 
@@ -34,9 +19,16 @@ $(function() {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
 
+        lista = JSON.stringify({
+           'horarios': lista
+        });
+
         $.ajax({
             url: "/cineapp/horarios/salvarListaHorarios",
-            type: 'GET',
+            type: 'POST',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: lista,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },
@@ -76,6 +68,18 @@ function adicionarHorario() {
     var peliculaID = $("#idPelicula option:selected").val();
     var peliculaNome = $("#idPelicula option:selected").text();
     var salaNome = $("#sala option:selected").text();
+
+    var obj = {
+        "fecha": DateHelper.textoParaData(fecha),
+        "hora": hora,
+        "sala": salaNome,
+        "precio": preco,
+        "pelicula": {
+            "id": peliculaID
+        }
+    };
+
+    lista.push(obj);
 
     var linha = novaLinha(fecha, hora, preco, peliculaID, peliculaNome, salaNome);
     corpoTabela.append(linha);

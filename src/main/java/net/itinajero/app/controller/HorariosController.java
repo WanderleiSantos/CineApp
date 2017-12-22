@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +22,6 @@ import net.itinajero.app.model.Pelicula;
 import net.itinajero.app.service.IPeliculasService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value="/horarios")
@@ -35,8 +33,6 @@ public class HorariosController {
 
 	@Autowired
 	private IHorarioService serviceHorarios;
-
-	private List<Horario> listHoraiosAttr = new ArrayList<>();
 
 	@GetMapping(value = "/index")
 	public String mostrarIndex(Model model) {
@@ -50,7 +46,7 @@ public class HorariosController {
 	public String mostrarIndexPaginado(Model model, Pageable page) {
 		Page<Horario> listaHorarios = serviceHorarios.buscarTodos(page);
 		model.addAttribute("horarios", listaHorarios);
-		return "horarios/listHorarios";
+        return "horarios/listHorarios";
 	}
 
 	@GetMapping(value = "/create")
@@ -60,15 +56,7 @@ public class HorariosController {
 
 	@PostMapping(value = "/save")
 	public @ResponseBody Horario guardar(Horario horario, BindingResult result, Model model, RedirectAttributes attributes) {
-
-		/*if (result.hasErrors()){
-			List<Pelicula> listaPeliculas = servicePeliculas.buscarActivas();
-			model.addAttribute("peliculas", listaPeliculas);
-			return "horarios/formHorario";
-		}*/
-
 		serviceHorarios.insertar(horario);
-		/*attributes.addFlashAttribute("msg", "El horario fue guardado!");*/
 		return horario;
 	}
 
@@ -101,22 +89,16 @@ public class HorariosController {
 		return "";
 	}
 
+    @PostMapping(value = "salvarListaHorarios")
+    public @ResponseBody List<Horario> salvarListaHorarios(@RequestBody ListHorario horarios){
 
-	@PostMapping(value = "listaHorarios")
-    public @ResponseBody List<Horario> listaHorarios(Horario horario){
-	    listHoraiosAttr.add(horario);
-	    return listHoraiosAttr;
-    }
-
-    @GetMapping(value = "salvarListaHorarios")
-    public @ResponseBody String salvarListaHorarios(){
-        for(Horario horario : listHoraiosAttr){
+        for(Horario horario : horarios.getHorarios()){
             serviceHorarios.insertar(horario);
         }
 
-        listHoraiosAttr = null;
-        return "horarios/indexPaginate";
+        return horarios.getHorarios();
     }
+
 
 	@ModelAttribute("peliculas")
 	public List<Pelicula> getPeliculas(){
